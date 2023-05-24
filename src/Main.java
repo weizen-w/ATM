@@ -10,6 +10,7 @@ public class Main {
     Scanner scanner = new Scanner(System.in);
     Bank bank = new Bank("ProjectBank", "10178 Berlin, Panoramastr. 1A");
     Atm atm = new Atm(15299, "10969 Berlin, Moritzstr. 17", bank);
+    Bank.mapClientPin = Bank.readFromFileMapClientPin();
     System.out.println(atm);
     int choiceMain;
     int choiceSub;
@@ -24,8 +25,8 @@ public class Main {
           switch (choiceSub) {
             case 1 -> client.selectAccount(scanner).payment(scanner);
             case 2 -> client.selectAccount(scanner).transfer(scanner);
-            case 3 -> client.selectAccount(scanner).deposit(scanner);
-            case 4 -> client.selectAccount(scanner).withdraw(scanner);
+            case 3 -> client.selectAccount(scanner).deposit(scanner, atm);
+            case 4 -> client.selectAccount(scanner).withdraw(scanner, atm);
             case 5 -> System.out.println(client.balance());
             case 6 -> client.printHistory();
             case 7 -> Bank.changePIN(client, scanner);
