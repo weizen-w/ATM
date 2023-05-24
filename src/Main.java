@@ -10,6 +10,7 @@ public class Main {
     Scanner scanner = new Scanner(System.in);
     Bank bank = new Bank("ProjectBank", "10178 Berlin, Panoramastr. 1A");
     Atm atm = new Atm(15299, "10969 Berlin, Moritzstr. 17", bank);
+    Bank.mapClientPin = Bank.readFromFileMapClientPin();
     System.out.println(atm);
     int choiceMain;
     int choiceSub;
