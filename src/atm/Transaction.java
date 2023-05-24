@@ -1,6 +1,14 @@
 package atm;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
 
 public class Transaction {
 
@@ -40,7 +48,10 @@ public class Transaction {
 
   @Override
   public String toString() {
-    return String.format("%d\t| %s\t| %f\t| %s\t| %b", numberID, date, sum, comment,
-        debitKredit);
+    return String.format("%d\t| %s\t| %f\t| %s\t| %b", numberID, date, sum, comment, debitKredit);
+  }
+
+  public String toWrite() {
+    return String.format("%d;%s;%f;%s;%b", numberID, date, sum, comment, debitKredit);
   }
 }
