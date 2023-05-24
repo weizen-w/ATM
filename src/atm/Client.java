@@ -14,12 +14,10 @@ public class Client {
 
   public Client(String name) throws FileNotFoundException {
     this.name = name;
-    this.accounts = readFromFileAccountsList(name);
-
   }
 
-  private static List<Account> readFromFileAccountsList(String name) throws FileNotFoundException {
-    String filename = "res/" + name + "_Acc.csv";
+  public static List<Account> readFromFileAccountsList(Client client) throws FileNotFoundException {
+    String filename = "res/" + client.getName() + "_Acc.csv";
     Scanner scanner = new Scanner(new FileReader(filename));
     List<Account> accList = new ArrayList<>();
     while (scanner.hasNextLine()) {
@@ -28,6 +26,10 @@ public class Client {
       accList.add(new Account(accString));
     }
     return accList;
+  }
+
+  public void setAccounts(List<Account> accounts) {
+    this.accounts = accounts;
   }
 
   public String getName() {

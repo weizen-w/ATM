@@ -76,6 +76,7 @@ public class Atm {
       }
       choice = scanner.nextInt();
     }
+    scanner.nextLine();
     return choice;
   }
 

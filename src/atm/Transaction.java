@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Transaction {
   private final String comment;
   private final boolean debitKredit;
 
+  private static final SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
   public Transaction(Date date, double sum, String comment, boolean debitKredit) {
     numberID++;
     this.date = date;
@@ -52,6 +54,7 @@ public class Transaction {
   }
 
   public String toWrite() {
-    return String.format("%d;%s;%f;%s;%b", numberID, date, sum, comment, debitKredit);
+    return String.format("%d;%s;%.2f;%s;%b%n", numberID, formatter.format(date), sum, comment,
+        debitKredit);
   }
 }
