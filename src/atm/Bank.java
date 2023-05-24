@@ -12,38 +12,44 @@ public class Bank {
   private String name;
   private String address;
 
-  public Bank(String name, String address) {
-    this.name = name;
-    this.address = address;
+  public static HashMap<String, String> getMapClientPin() {
+    return mapClientPin;
   }
 
-  private static final String CLIENTS = "res/clients.csv";
-  public static HashMap<String, String> mapClientPin;
-
   public static Client authorization(Scanner scanner) throws IOException {
+    //Scanner scanner = new Scanner(System.in);
+    boolean authSuccess = false;
 
     if (mapClientPin.isEmpty()) {
       mapClientPin = readFromFileMapClientPin();
     }
+    System.out.println();
+    System.out.println("*** Authorization ***");
+    System.out.println();
+    do {
+      System.out.print("Please input your login:");
+      String name = scanner.nextLine();
 
-    // TODO
-    System.out.print("Please input your login:");
-    String name = scanner.nextLine();
+      if (mapClientPin.containsKey(name)) {
+        System.out.print("Please input your PIN:");
+        String pin = scanner.nextLine();
 
-    System.out.print("Please input your PIN:");
-    String pin = scanner.nextLine();
+        if (mapClientPin.get(name).equals(pin)) {
+          System.out.println("PIN ok!");
+          authSuccess = true;
+          return Client.getByName(name);// TODO
+        }
+        System.out.println("Wrong PIN!");
 
-    if (mapClientPin.containsKey(name)) {
-      if (mapClientPin.get(name).equals(pin)) {
-        return Client.getByName(name);// TODO
+        continue;
       }
-      System.out.println("Wrong PIN!");
-    }
-    System.out.println("Wrong login!");
+      System.out.println("Wrong login!");
+    } while (!authSuccess);
     return null;
   }
 
   public static void changePIN(Client client, Scanner scanner) {
+    scanner.nextLine();
     String login = client.getName();// TODO
     String oldPin = mapClientPin.get(login);
 
@@ -71,7 +77,15 @@ public class Bank {
 
   }
 
-  private static HashMap<String, String> readFromFileMapClientPin() throws IOException {
+  public Bank(String name, String address) {
+    this.name = name;
+    this.address = address;
+  }
+
+  private static final String CLIENTS = "res/clients.csv";
+  public static HashMap<String, String> mapClientPin;
+
+  public static HashMap<String, String> readFromFileMapClientPin() throws IOException {
     HashMap<String, String> clientPin = new HashMap<>();
     Scanner scanner = new Scanner(new FileReader(CLIENTS));
 
@@ -88,6 +102,14 @@ public class Bank {
 
     scanner.close();
     return clientPin;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getAddress() {
+    return address;
   }
 
 
