@@ -64,14 +64,14 @@ public class Atm {
     int choice;
     System.out.print("Please, select menu number: ");
     while (!scanner.hasNextInt()) {
-      scanner.nextLine();
+      scanner.next();
       System.out.print("Invalid input. Enter the number: ");
     }
     choice = scanner.nextInt();
     while (choice < 0 || choice > args.length - 1) { // -1(Название меню)
       System.out.println();
       while (!scanner.hasNextInt()) {
-        scanner.nextLine();
+        scanner.next();
         System.out.print("Invalid input. Enter the number: ");
       }
       choice = scanner.nextInt();
