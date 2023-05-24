@@ -7,6 +7,14 @@ import java.util.Scanner;
 
 public class Bank {
 
+  private String name;
+  private String address;
+
+  public Bank(String name, String address) {
+    this.name = name;
+    this.address = address;
+  }
+
   private static final String CLIENTS = "res/clients.csv";
   public static HashMap<String, String> mapClientPin;
 
@@ -78,5 +86,13 @@ public class Bank {
 
     scanner.close();
     return clientPin;
+  }
+
+  @Override
+  public String toString() {
+    return "Bank{" +
+        "name='" + name + '\'' +
+        ", address='" + address + '\'' +
+        '}';
   }
 }
