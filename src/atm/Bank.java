@@ -33,7 +33,7 @@ public class Bank {
 
     if (mapClientPin.containsKey(name)) {
       if (mapClientPin.get(name).equals(pin)) {
-        return Client.getByName(name);//TODO
+        return Client.getByName(name);// TODO
       }
       System.out.println("Wrong PIN!");
     }
@@ -42,7 +42,7 @@ public class Bank {
   }
 
   public static void changePIN(Client client, Scanner scanner) {
-    String login = client.getName();//TODO
+    String login = client.getName();// TODO
     String oldPin = mapClientPin.get(login);
 
     System.out.print("Input old PIN:");

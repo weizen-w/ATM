@@ -8,8 +8,8 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     Scanner scanner = new Scanner(System.in);
-    Bank bank = new Bank("ProjectBank", "10178 Berlin, Panoramastraße 1A");
-    Atm atm = new Atm(15299, "10969 Berlin, Moritzstraße 17", bank);
+    Bank bank = new Bank("ProjectBank", "10178 Berlin, Panoramastr. 1A");
+    Atm atm = new Atm(15299, "10969 Berlin, Moritzstr. 17", bank);
     System.out.println(atm);
     int choiceMain;
     int choiceSub;
