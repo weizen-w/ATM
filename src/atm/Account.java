@@ -1,13 +1,14 @@
 package atm;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class Account {
   private String accountNumber;
   private double balance;
-  private List<String> transactionHistory;
+  private List<Transaction> transactionHistory;
 
   public Account(String accountNumber) {
     this.accountNumber = accountNumber;
@@ -23,7 +24,7 @@ public class Account {
     return balance;
   }
 
-  public List<String> getTransactionHistory() {
+  public List<Transaction> getTransactionHistory() {
     return transactionHistory;
   }
 
@@ -31,10 +32,13 @@ public class Account {
     System.out.print("Enter the payment amount: ");
     double amount = scanner.nextDouble();
     scanner.nextLine(); // Consume the newline character
-
+    System.out.println("Enter the comment");
+    String comment = scanner.nextLine();
+    Date date = new Date();
+    Transaction transaction = new Transaction(date, amount, comment, false);
     if (amount > 0) {
       balance += amount;
-      transactionHistory.add("Payment of $" + amount);
+      transactionHistory.add(transaction);
       System.out.println("Payment successful.");
     } else {
       System.out.println("Invalid payment amount. Payment failed.");
