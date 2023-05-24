@@ -1,10 +1,8 @@
 package atm;
 
-import javax.xml.namespace.QName;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public class Bank {
@@ -16,6 +14,8 @@ public class Bank {
     return mapClientPin;
   }
 
+  private static final String SEP = ";";
+
   public static Client authorization(Scanner scanner) throws IOException {
     //Scanner scanner = new Scanner(System.in);
     boolean authSuccess = false;
@@ -26,7 +26,7 @@ public class Bank {
     System.out.println();
     System.out.println("*** Authorization ***");
     System.out.println();
-    do {
+    do {//TODO count try auth if than as, return null
       System.out.print("Please input your login:");
       String name = scanner.nextLine();
 
@@ -37,7 +37,7 @@ public class Bank {
         if (mapClientPin.get(name).equals(pin)) {
           System.out.println("PIN ok!");
           authSuccess = true;
-          return Client.getByName(name);// TODO
+          return new Client(name);
         }
         System.out.println("Wrong PIN!");
 
@@ -94,8 +94,8 @@ public class Bank {
     while (scanner.hasNext()) {
       str = scanner.nextLine();
 
-      String name = str.substring(0, str.indexOf(";"));
-      String pin = str.substring(str.indexOf(";") + 1);
+      String name = str.substring(0, str.indexOf(SEP));
+      String pin = str.substring(str.indexOf(SEP) + 1);
 
       clientPin.put(name, pin);
     }
@@ -113,7 +113,6 @@ public class Bank {
   }
 
 
-
   @Override
   public String toString() {
     return "Bank{" +
@@ -121,5 +120,4 @@ public class Bank {
         ", address='" + address + '\'' +
         '}';
   }
-
 }

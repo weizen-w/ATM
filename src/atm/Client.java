@@ -1,16 +1,35 @@
 package atm;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javax.naming.SizeLimitExceededException;
 
 public class Client {
+
   private String name;
   private List<Account> accounts;
 
-  public Client(String name) {
+  public Client(String name) throws FileNotFoundException {
     this.name = name;
-    this.accounts = new ArrayList<>();
+  }
+
+  public static List<Account> readFromFileAccountsList(Client client) throws FileNotFoundException {
+    String filename = "res/" + client.getName() + "_Acc.csv";
+    Scanner scanner = new Scanner(new FileReader(filename));
+    List<Account> accList = new ArrayList<>();
+    while (scanner.hasNextLine()) {
+      String accString = scanner.nextLine();
+
+      accList.add(new Account(accString));
+    }
+    return accList;
+  }
+
+  public void setAccounts(List<Account> accounts) {
+    this.accounts = accounts;
   }
 
   public String getName() {
@@ -48,14 +67,14 @@ public class Client {
     }
   }
 
-  public static Client getByName(String name) {
-    for (Client client : Bank.getBank().getClients()) {
-      if (client.getName().equals(name)) {
-        return client;
-      }
-    }
-    return null;
-  }
+//  public static Client getByName(String name) {
+//    for (Client client : Bank.getClients()) {
+//      if (client.getName().equals(name)) {
+//        return client;
+//      }
+//    }
+//    return null;
+//  }
 
   private static int getIntInput(Scanner scanner, int min, int max) {
     int choice;
