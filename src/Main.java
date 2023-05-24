@@ -7,17 +7,19 @@ public class Main {
 
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
-    Atm atm = new Atm();
+    Bank bank = new Bank();
+    Atm atm = new Atm(15299, "10969 Berlin, Moritzstraße 17", bank);
+    System.out.println(atm);
     int choiceMain;
     int choiceSub;
     do {
-      atm.printMenu();
-      choiceMain = atm.selectMenu(scanner);
+      atm.printMenu(Atm.getMainMenu());
+      choiceMain = atm.selectMenu(scanner, Atm.getMainMenu());
       if (choiceMain == 1) {
         Client client = Bank.authorization(scanner);
         do {
-          atm.printMenu();
-          choiceSub = atm.selectMenu(scanner);
+          atm.printMenu(Atm.getClientMenu());
+          choiceSub = atm.selectMenu(scanner, Atm.getClientMenu());
           switch (choiceSub) {
             case 1 -> client.selectAccount(scanner).payment(scanner);
             case 2 -> client.selectAccount(scanner).transfer(scanner);
