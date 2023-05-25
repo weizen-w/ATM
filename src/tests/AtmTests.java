@@ -4,29 +4,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import atm.Atm;
 import atm.Bank;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 public class AtmTests {
 
-  @Test
-  public void testConstructor() {
+  @ParameterizedTest
+  @CsvSource({
+      "15566, '10969 Berlin, Moritz str. 17', 'ProjectBank', '10178 Berlin, Panorama str. 1A'",
+  })
+  public void testConstructor(int num, String address, String nameBank, String addressBank) {
     // arrange
-    int num = 15566;
-    String address = "10969 Berlin, Moritzstr. 17";
-    Bank bank = new Bank("ProjectBank", "10178 Berlin, Panoramastr. 1A");
+    Bank bank = new Bank(nameBank, addressBank);
     // arrange & act
     Atm atm = new Atm(num, address, bank);
     // assert
     assertEquals(num, atm.getNum());
     assertEquals(address, atm.getAddress());
-    assertEquals(bank, atm.getBank()); // TODO
+    assertEquals(bank, atm.getBank());
   }
 
   @ParameterizedTest
   @CsvSource({
-      "15566, '10969 Berlin, Moritzstr. 17', 'ProjectBank', '10178 Berlin, Panoramastr. 1A'",
+      "15566, '10969 Berlin, Moritz str. 17', 'ProjectBank', '10178 Berlin, Panorama str. 1A'",
   })
   public void testToString(int num, String address, String nameBank, String addressBank) {
     // arrange
