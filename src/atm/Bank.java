@@ -1,11 +1,14 @@
 package atm;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Bank {
@@ -74,8 +77,7 @@ public class Bank {
     return new Client(name);
   }
 
-  public static void changePIN(Client client, Scanner scanner) {
-    scanner.nextLine();
+  public static void changePIN(Client client, Scanner scanner) throws IOException {
     String login = client.getName();
     String oldPin = mapClientPin.get(login);
     System.out.print("Input old PIN:");
@@ -94,6 +96,7 @@ public class Bank {
     }
     mapClientPin.put(login, newPinUser1);
     System.out.println("PIN successfully changed!");
+    writeToFileMapClientPin(mapClientPin);
   }
 
   public static HashMap<String, String> readFromFileMapClientPin() throws IOException {
@@ -108,6 +111,16 @@ public class Bank {
     }
     scanner.close();
     return clientPin;
+  }
+
+
+  private static void writeToFileMapClientPin(Map<String, String> clientPin) throws IOException {
+
+    FileWriter fileWriter = new FileWriter(new File(CLIENTS));
+    for (String key : clientPin.keySet()) {
+      fileWriter.write(key + ";" + clientPin.get(key) + "\n");
+    }
+    fileWriter.close();
   }
 
   public static List<Client> makeListClients() throws FileNotFoundException {

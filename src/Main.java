@@ -56,9 +56,19 @@ public class Main {
               account.withdraw(scanner, atm);
               break;
             }
-//            case 5 -> System.out.println(client.balance()); break;
+            case 5: {
+              Account account = client.selectAccount(scanner);
+              account.setTransactionHistory(
+                  account.readFromFileTransactionList(client, account.getAccountNumber()));
+              System.out.println(account.getBalance());
+              break;
+            }
 //            case 6 -> client.printHistory(); break;
-//            case 7 -> Bank.changePIN(client, scanner); break;
+            case 7: {
+              Bank.changePIN(client, scanner);
+
+              break;
+            }
           }
         } while (choiceSub != 0);
       }
@@ -73,8 +83,8 @@ public class Main {
               for (Client client : clientList) {
                 List<Account> clientAccountList = Client.readFromFileAccountsList(client);
                 System.out.printf("Client: %s\n%s\n", client, clientAccountList);
-                break;
               }
+              break;
             }
 //            case 2: {
 //
