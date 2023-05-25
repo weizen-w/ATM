@@ -1,19 +1,11 @@
 package atm;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
 
 public class Transaction {
 
-  private static int numberID = 1;
+  private static int numberID = 0;
   private final Date date;
   private final double sum;
   private final String comment;
@@ -54,7 +46,9 @@ public class Transaction {
   }
 
   public String toWrite() {
-    return String.format("%d;%s;%.2f;%s;%b%n", numberID, formatter.format(date), sum, comment,
+    String sumStr = sum + "";
+    sumStr = sumStr.replace(',', '.');
+    return String.format("%d;%s;%s;%s;%b", numberID, formatter.format(date), sumStr, comment,
         debitKredit);
   }
 }

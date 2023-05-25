@@ -44,13 +44,15 @@ public class Account {
     List<Transaction> transList = new ArrayList<>();
     while (scanner.hasNextLine()) {
       String accString = scanner.nextLine();
-      String[] strAfterSplit = accString.split(SEP);
-      int numberID = Integer.parseInt(strAfterSplit[0]);
-      Date date = formatter.parse(strAfterSplit[1]);
-      double sum = Double.parseDouble(strAfterSplit[2]);
-      String comment = strAfterSplit[3];
-      boolean debitKredit = Boolean.parseBoolean(strAfterSplit[4]);
-      transList.add(new Transaction(date, sum, comment, debitKredit));
+      if (accString != "") {
+        String[] strAfterSplit = accString.split(SEP);
+        int numberID = Integer.parseInt(strAfterSplit[0]);
+        Date date = formatter.parse(strAfterSplit[1]);
+        double sum = Double.parseDouble(strAfterSplit[2]);
+        String comment = strAfterSplit[3];
+        boolean debitKredit = Boolean.parseBoolean(strAfterSplit[4]);
+        transList.add(new Transaction(date, sum, comment, debitKredit));
+      }
     }
     return transList;
   }
@@ -161,7 +163,7 @@ public class Account {
     stringFromFile.add(t.toWrite());
     FileWriter fileWriter = new FileWriter(new File(filename));
     for (String str : stringFromFile) {
-      fileWriter.write(str);
+      fileWriter.write(str + "\n");
     }
     fileWriter.close();
   }
