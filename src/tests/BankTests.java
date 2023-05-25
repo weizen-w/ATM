@@ -13,25 +13,22 @@ public class BankTests {
   public void testConstructor() {
     // arrange
     String name = "ProjectBank";
-    String address = "10178 Berlin, Panoramastr. 1A";
+    String address = "10178 Berlin, Panorama str. 1A";
     // arrange & act
     Bank bank = new Bank(name, address);
     // assert
-    assertEquals(name, bank.getName()); // TODO
-    assertEquals(address, bank.getAddress()); // TODO
+    assertEquals(name, bank.getName());
+    assertEquals(address, bank.getAddress());
   }
 
   @ParameterizedTest
   @CsvSource({
-      "'ProjectBank', '10178 Berlin, Panoramastr. 1A'",
+      "'ProjectBank', '10178 Berlin, Panorama str. 1A'",
   })
   public void testToString(String name, String address) {
     // arrange
     Bank bank = new Bank(name, address);
-    String expected = "Bank{" +
-        "name='" + name + '\'' +
-        ", address='" + address + '\'' +
-        '}';
+    String expected = "Bank name: " + name + ", address: " + address;
     // act
     String actual = bank.toString();
     // assert
