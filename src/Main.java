@@ -33,28 +33,32 @@ public class Main {
               account.setTransactionHistory(
                   account.readFromFileTransactionList(client, account.getAccountNumber()));
               account.payment(scanner);
+              break;
             }
             case 2: {
               Account account = client.selectAccount(scanner);
               account.setTransactionHistory(
                   account.readFromFileTransactionList(client, account.getAccountNumber()));
               account.transfer(scanner);
+              break;
             }
             case 3: {
               Account account = client.selectAccount(scanner);
               account.setTransactionHistory(
                   account.readFromFileTransactionList(client, account.getAccountNumber()));
               account.deposit(scanner, atm);
+              break;
             }
             case 4: {
               Account account = client.selectAccount(scanner);
               account.setTransactionHistory(
                   account.readFromFileTransactionList(client, account.getAccountNumber()));
               account.withdraw(scanner, atm);
+              break;
             }
-//            case 5 -> System.out.println(client.balance());
-//            case 6 -> client.printHistory();
-//            case 7 -> Bank.changePIN(client, scanner);
+//            case 5 -> System.out.println(client.balance()); break;
+//            case 6 -> client.printHistory(); break;
+//            case 7 -> Bank.changePIN(client, scanner); break;
           }
         } while (choiceSub != 0);
       }
@@ -69,6 +73,7 @@ public class Main {
               for (Client client : clientList) {
                 List<Account> clientAccountList = Client.readFromFileAccountsList(client);
                 System.out.printf("Client: %s\n%s\n", client, clientAccountList);
+                break;
               }
             }
 //            case 2: {

@@ -63,11 +63,13 @@ public class Bank {
         if (mapClientPin.get(name).equals(pin)) {
           System.out.println("PIN ok!");
           authSuccess = true;
+        } else {
+          System.out.println("Wrong PIN!");
+          continue;
         }
-        System.out.println("Wrong PIN!");
-        continue;
+      } else {
+        System.out.println("Wrong login!");
       }
-      System.out.println("Wrong login!");
     } while (!authSuccess);
     return new Client(name);
   }

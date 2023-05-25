@@ -36,8 +36,9 @@ public class Account {
   }
 
   public List<Transaction> readFromFileTransactionList(Client owner, String name)
-      throws FileNotFoundException, ParseException {
+      throws IOException, ParseException {
     FILENAME = "res/" + accountNumber + ".csv";
+    checkExistFile();
     Scanner scanner = new Scanner(new FileReader(FILENAME));
     List<Transaction> transList = new ArrayList<>();
     while (scanner.hasNextLine()) {
@@ -53,6 +54,14 @@ public class Account {
       }
     }
     return transList;
+  }
+
+  private void checkExistFile() throws IOException {
+    File file = new File(FILENAME);
+    if (!file.exists()) {
+      FileWriter fileWriter = new FileWriter(FILENAME);
+      fileWriter.close();
+    }
   }
 
   public String getAccountNumber() {
@@ -79,13 +88,14 @@ public class Account {
       balance += amount;
       transactionHistory.add(transaction);
       writeTransactionToFile(transaction, FILENAME);
+
       System.out.println("Payment successful.");
     } else {
       System.out.println("Invalid payment amount. Payment failed.");
     }
   }
 
-  public void transfer(Scanner scanner) {
+  public void transfer(Scanner scanner) throws IOException {
     System.out.print("Enter the transfer amount: ");
     double amount = scanner.nextDouble();
     scanner.nextLine(); // Consume the newline character
@@ -103,29 +113,31 @@ public class Account {
       String comment = commentUser + " to accNo:" + accountRecipient;
       Transaction transaction = new Transaction(new Date(), amount, comment, false);
       transactionHistory.add(transaction);
+      writeTransactionToFile(transaction, FILENAME);
       System.out.println("Transfer successful.");
     } else {
       System.out.println("Invalid transfer amount. Transfer failed.");
     }
   }
 
-  public void deposit(Scanner scanner, Atm atm) {
+  public void deposit(Scanner scanner, Atm atm) throws IOException {
     System.out.print("Enter the deposit amount: ");
     double amount = scanner.nextDouble();
     scanner.nextLine(); // Consume the newline character
 
     if (amount > 0) {
       balance += amount;
-      String comment = "Cash in in ATM" + atm;//TODO style
+      String comment = "Cash in in ATM" + atm.toString().replaceAll("\n", "\t");//TODO style
       Transaction transaction = new Transaction(new Date(), amount, comment, false);
       transactionHistory.add(transaction);
+      writeTransactionToFile(transaction, FILENAME);
       System.out.println("Deposit successful.");
     } else {
       System.out.println("Invalid deposit amount. Deposit failed.");
     }
   }
 
-  public void withdraw(Scanner scanner, Atm atm) {
+  public void withdraw(Scanner scanner, Atm atm) throws IOException {
     System.out.print("Enter the withdrawal amount: ");
     double amount = scanner.nextDouble();
     scanner.nextLine(); // Consume the newline character
@@ -135,6 +147,7 @@ public class Account {
       String comment = "Cash out in ATM" + atm;//TODO style
       Transaction transaction = new Transaction(new Date(), amount, comment, false);
       transactionHistory.add(transaction);
+      writeTransactionToFile(transaction, FILENAME);
       System.out.println("Withdrawal successful.");
     } else {
       System.out.println("Invalid withdrawal amount. Withdrawal failed.");
@@ -151,7 +164,7 @@ public class Account {
   private void writeTransactionToFile(Transaction t, String filename)
       throws IOException {
     List<String> stringFromFile = new ArrayList<>();
-    Scanner scanner = new Scanner(new FileReader(FILENAME));
+    Scanner scanner = new Scanner(new FileReader(filename));
     while (scanner.hasNextLine()) {
       String str = scanner.nextLine();
       stringFromFile.add(str);
