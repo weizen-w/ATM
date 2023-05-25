@@ -28,9 +28,7 @@ public class Account {
 
   @Override
   public String toString() {
-    return "Account{" +
-        "accountNumber='" + accountNumber + '\'' +
-        '}';
+    return "AccountNumber: " + accountNumber + ";";
   }
 
   public void setTransactionHistory(List<Transaction> transactionHistory) {
