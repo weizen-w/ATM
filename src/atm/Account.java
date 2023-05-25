@@ -1,7 +1,6 @@
 package atm;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,11 +9,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Account {
 
-  private String accountNumber;
+  private final String accountNumber;
   private double balance = 0.0;
   private static final String SEP = ";";
   private List<Transaction> transactionHistory;
@@ -22,20 +22,34 @@ public class Account {
   private String FILENAME;
 
   public Account(String accountNumber) {
-
     this.accountNumber = accountNumber;
   }
 
-  @Override
-  public String toString() {
-    return "AccountNumber: " + accountNumber;
+  public String getAccountNumber() {
+    return accountNumber;
+  }
+
+  public double getBalance() {
+    return balance;
+  }
+
+  public List<Transaction> getTransactionHistory() {
+    return transactionHistory;
+  }
+
+  public String getFILENAME() {
+    return FILENAME;
+  }
+
+  public void setBalance(double balance) {
+    this.balance = balance;
   }
 
   public void setTransactionHistory(List<Transaction> transactionHistory) {
     this.transactionHistory = transactionHistory;
   }
 
-  public List<Transaction> readFromFileTransactionList(Client owner, String name)
+  public List<Transaction> readFromFileTransactionList()
       throws IOException, ParseException {
     FILENAME = "res/" + accountNumber + ".csv";
     checkExistFile();
@@ -44,7 +58,7 @@ public class Account {
     List<Transaction> transList = new ArrayList<>();
     while (scanner.hasNextLine()) {
       String accString = scanner.nextLine();
-      if (accString != "") {
+      if (!accString.isEmpty()) {
         String[] strAfterSplit = accString.split(SEP);
         int numberID = Integer.parseInt(strAfterSplit[0]);
         Date date = formatter.parse(strAfterSplit[1]);
@@ -70,18 +84,6 @@ public class Account {
     }
   }
 
-  public String getAccountNumber() {
-    return accountNumber;
-  }
-
-  public double getBalance() {
-    return balance;
-  }
-
-  public List<Transaction> getTransactionHistory() {
-    return transactionHistory;
-  }
-
   public void payment(Scanner scanner) throws IOException {
     //TODO show balance before and after
     System.out.print("Enter the payment amount: ");
@@ -95,7 +97,6 @@ public class Account {
       balance += amount;
       transactionHistory.add(transaction);
       writeTransactionToFile(transaction, FILENAME);
-
       System.out.println("Payment successful.");
     } else {
       System.out.println("Invalid payment amount. Payment failed.");
@@ -107,17 +108,13 @@ public class Account {
     System.out.print("Enter the transfer amount: ");
     double amount = scanner.nextDouble();
     scanner.nextLine(); // Consume the newline character
-
     if (amount > 0 && amount <= balance) {
       balance -= amount;
-
       System.out.print("Enter a description of transfer: ");
       String commentUser = scanner.nextLine();
-
       System.out.print("Enter an account of recipient: ");
       String accountRecipient = scanner.nextLine();
       //TODO Seek account in this bank, and if it's, than add transaction to recipients account
-      //transactionHistory.add("Transfer of $" + amount + " to Account " + recipient.getAccountNumber());
       String comment = commentUser + " to accNo:" + accountRecipient;
       Transaction transaction = new Transaction(new Date(), amount, comment, false);
       transactionHistory.add(transaction);
@@ -132,10 +129,9 @@ public class Account {
     System.out.print("Enter the deposit amount: ");
     double amount = scanner.nextDouble();
     scanner.nextLine(); // Consume the newline character
-
     if (amount > 0) {
       balance += amount;
-      String comment = "Cash in in ATM" + atm.toString().replaceAll("\n", "\t");//TODO style
+      String comment = "Cash-in in ATM No." + atm.getNum();
       Transaction transaction = new Transaction(new Date(), amount, comment, true);
       transactionHistory.add(transaction);
       writeTransactionToFile(transaction, FILENAME);
@@ -150,10 +146,9 @@ public class Account {
     System.out.print("Enter the withdrawal amount: ");
     double amount = scanner.nextDouble();
     scanner.nextLine(); // Consume the newline character
-
     if (amount > 0 && amount <= balance) {
       balance -= amount;
-      String comment = "Cash out in ATM" + atm;//TODO style
+      String comment = "Cash-out in ATM No." + atm.getNum();
       Transaction transaction = new Transaction(new Date(), amount, comment, false);
       transactionHistory.add(transaction);
       writeTransactionToFile(transaction, FILENAME);
@@ -179,12 +174,33 @@ public class Account {
       stringFromFile.add(str);
     }
     scanner.close();
-
     stringFromFile.add(t.toWrite());
-    FileWriter fileWriter = new FileWriter(new File(filename));
+    FileWriter fileWriter = new FileWriter(filename);
     for (String str : stringFromFile) {
       fileWriter.write(str + "\n");
     }
     fileWriter.close();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Account account = (Account) o;
+    return Objects.equals(accountNumber, account.accountNumber);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(accountNumber);
+  }
+
+  @Override
+  public String toString() {
+    return "AccountNumber: " + accountNumber;
   }
 }
