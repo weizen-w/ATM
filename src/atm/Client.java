@@ -89,4 +89,9 @@ public class Client {
     } while (choice < min || choice > max);
     return choice;
   }
+
+  @Override
+  public String toString() {
+    return name;
+  }
 }

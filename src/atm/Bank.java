@@ -1,8 +1,11 @@
 package atm;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Bank {
@@ -102,6 +105,16 @@ public class Bank {
 
     scanner.close();
     return clientPin;
+  }
+
+  public static List<Client> makeListClients()
+      throws FileNotFoundException {
+    List<Client> clientList = new ArrayList<>();
+    for (String str : mapClientPin.keySet()) {
+      Client client = new Client(str);
+      clientList.add(client);
+    }
+    return clientList;
   }
 
   public String getName() {
