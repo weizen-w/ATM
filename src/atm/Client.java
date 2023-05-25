@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import javax.naming.SizeLimitExceededException;
 
@@ -88,6 +89,25 @@ public class Client {
       scanner.nextLine(); // Consume the newline character
     } while (choice < min || choice > max);
     return choice;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Client client = (Client) o;
+
+    return Objects.equals(name, client.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return name != null ? name.hashCode() : 0;
   }
 
   @Override

@@ -3,7 +3,7 @@ package atm;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Transaction {
+public class Transaction {//TODO read all transaction at start or file params.ini
 
   private static int numberID = 0;
   private final Date date;
@@ -11,7 +11,12 @@ public class Transaction {
   private final String comment;
   private final boolean debitKredit;
 
+  public static void setNumberID(int numberID) {
+    Transaction.numberID = numberID;
+  }
+
   private static final SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+
   public Transaction(Date date, double sum, String comment, boolean debitKredit) {
     numberID++;
     this.date = date;
