@@ -2,8 +2,12 @@ import atm.Account;
 import atm.Atm;
 import atm.Bank;
 import atm.Client;
+import atm.ClientNameComparator;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,8 +19,7 @@ public class Main {
     Atm atm = new Atm(15299, "10969 Berlin, Moritzstr. 17", bank);
     Bank.mapClientPin = Bank.readFromFileMapClientPin();
     System.out.println(atm);
-    int choiceMain;
-    int choiceSub;
+    int choiceMain, choiceSub, choiceAdmin;
     do {
       atm.printMenu(Atm.getMainMenu());
       choiceMain = atm.selectMenu(scanner, Atm.getMainMenu());
@@ -57,6 +60,31 @@ public class Main {
 //            case 7 -> Bank.changePIN(client, scanner);
           }
         } while (choiceSub != 0);
+      }
+      if (choiceMain == 1001) {
+        List<Client> clientList = Bank.makeListClients();
+        do {
+          atm.printMenu(Atm.getAdminMenu());
+          choiceAdmin = atm.selectMenu(scanner, Atm.getAdminMenu());
+          switch (choiceAdmin) {
+            case 1: {
+              clientList.sort(new ClientNameComparator());
+              for (Client client : clientList) {
+                List<Account> clientAccountList = Client.readFromFileAccountsList(client);
+                System.out.printf("Client: %s\n%s\n", client, clientAccountList);
+              }
+            }
+//            case 2: {
+//
+//            }
+//            case 3: {
+//
+//            }
+//            case 4: {
+//
+//            }
+          }
+        } while (choiceAdmin != 0);
       }
     } while (choiceMain != 0);
     scanner.close();
