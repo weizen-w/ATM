@@ -35,7 +35,7 @@ public class BankTests {
     // arrange
     Bank bank = new Bank(name, address);
     String expected = "Bank name: " + name + ", address: " + address;
-    // act
+    // arrange & act
     String actual = bank.toString();
     // assert
     assertEquals(expected, actual);
@@ -70,7 +70,7 @@ public class BankTests {
   }
 
   @Test
-  public void testmakeListClients() throws IOException {
+  public void testMakeListClients() throws IOException {
     //arrange
     List<Client> expected = new ArrayList<>();
     expected.add(new Client("Oleksandr"));
