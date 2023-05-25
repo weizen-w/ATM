@@ -1,8 +1,14 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import atm.Bank;
+import atm.Client;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -33,5 +39,63 @@ public class BankTests {
     String actual = bank.toString();
     // assert
     assertEquals(expected, actual);
+  }
+
+  @Test
+  public void testReadFromFileMapClientPin() throws IOException {
+    //arrange
+    HashMap<String, String> expected = new HashMap<>();
+    expected.put("Oleksandr", "1111");
+    expected.put("Wladimir", "5678");
+    expected.put("Kateryna", "9012");
+    //act
+    HashMap<String, String> actual = Bank.readFromFileMapClientPin();
+    //assert
+    assertEquals(expected, actual);
+    assertEquals(actual, expected);
+  }
+
+  @Test
+  public void testReadFromFileMapClientPinNonEquals() throws IOException {
+    //arrange
+    HashMap<String, String> expected = new HashMap<>();
+    expected.put("Oleksandr", "1111");
+    expected.put("Wladimir", "5678");
+    expected.put("Kateryna", "0000");
+    //act
+    HashMap<String, String> actual = Bank.readFromFileMapClientPin();
+    //assert
+    assertNotEquals(expected, actual);
+    assertNotEquals(actual, expected);
+  }
+
+  @Test
+  public void testmakeListClients() throws IOException {
+    //arrange
+    List<Client> expected = new ArrayList<>();
+    expected.add(new Client("Oleksandr"));
+    expected.add(new Client("Wladimir"));
+    expected.add(new Client("Kateryna"));
+    //act
+    Bank.mapClientPin = Bank.readFromFileMapClientPin();
+    List<Client> actual = Bank.makeListClients();
+    //assert
+    assertEquals(expected, actual);
+    assertEquals(actual, expected);
+  }
+
+  @Test
+  public void testMakeListClientsNonEquals() throws IOException {
+    //arrange
+    List<Client> expected = new ArrayList<>();
+    expected.add(new Client("OlEkSaNdRrRrRrRr"));
+    expected.add(new Client("Wladimir"));
+    expected.add(new Client("Kateryna"));
+    //act
+    Bank.mapClientPin = Bank.readFromFileMapClientPin();
+    List<Client> actual = Bank.makeListClients();
+    //assert
+    assertNotEquals(expected, actual);
+    assertNotEquals(actual, expected);
   }
 }
