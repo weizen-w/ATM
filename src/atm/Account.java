@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Account {
 
   private String accountNumber;
-  private double balance;
+  private double balance = 0.0;
   private static final String SEP = ";";
   private List<Transaction> transactionHistory;
   private static final SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
@@ -28,7 +28,7 @@ public class Account {
 
   @Override
   public String toString() {
-    return "AccountNumber: " + accountNumber + ";";
+    return "AccountNumber: " + accountNumber;
   }
 
   public void setTransactionHistory(List<Transaction> transactionHistory) {
@@ -39,6 +39,7 @@ public class Account {
       throws IOException, ParseException {
     FILENAME = "res/" + accountNumber + ".csv";
     checkExistFile();
+    balance = 0;
     Scanner scanner = new Scanner(new FileReader(FILENAME));
     List<Transaction> transList = new ArrayList<>();
     while (scanner.hasNextLine()) {
@@ -51,6 +52,11 @@ public class Account {
         String comment = strAfterSplit[3];
         boolean debitKredit = Boolean.parseBoolean(strAfterSplit[4]);
         transList.add(new Transaction(date, sum, comment, debitKredit));
+        if (debitKredit) {
+          balance += sum;
+        } else {
+          balance -= sum;
+        }
       }
     }
     return transList;
@@ -77,6 +83,7 @@ public class Account {
   }
 
   public void payment(Scanner scanner) throws IOException {
+    //TODO show balance before and after
     System.out.print("Enter the payment amount: ");
     double amount = scanner.nextDouble();
     scanner.nextLine(); // Consume the newline character
@@ -84,7 +91,7 @@ public class Account {
     String comment = scanner.nextLine();
     Date date = new Date();
     Transaction transaction = new Transaction(date, amount, comment, false);
-    if (amount > 0) {
+    if (amount > 0 && amount <= balance) {
       balance += amount;
       transactionHistory.add(transaction);
       writeTransactionToFile(transaction, FILENAME);
@@ -96,6 +103,7 @@ public class Account {
   }
 
   public void transfer(Scanner scanner) throws IOException {
+    //TODO show balance before and after
     System.out.print("Enter the transfer amount: ");
     double amount = scanner.nextDouble();
     scanner.nextLine(); // Consume the newline character
@@ -128,7 +136,7 @@ public class Account {
     if (amount > 0) {
       balance += amount;
       String comment = "Cash in in ATM" + atm.toString().replaceAll("\n", "\t");//TODO style
-      Transaction transaction = new Transaction(new Date(), amount, comment, false);
+      Transaction transaction = new Transaction(new Date(), amount, comment, true);
       transactionHistory.add(transaction);
       writeTransactionToFile(transaction, FILENAME);
       System.out.println("Deposit successful.");
@@ -138,6 +146,7 @@ public class Account {
   }
 
   public void withdraw(Scanner scanner, Atm atm) throws IOException {
+    //TODO show balance before and after
     System.out.print("Enter the withdrawal amount: ");
     double amount = scanner.nextDouble();
     scanner.nextLine(); // Consume the newline character
