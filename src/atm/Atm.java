@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Atm {
 
-  private static final String[] mainMenu = {"--- Main Menu ---","1. Authorization", "0. Exit"};
+  private static final String[] mainMenu = {"--- Main Menu ---", "1. Authorization", "0. Exit"};
   private static final String[] clientMenu = {
       "--- Client Menu ---",
       "1. Pay",
@@ -14,6 +14,14 @@ public class Atm {
       "5. Balance",
       "6. History transactions",
       "7. Change PIN-code",
+      "0. Back to main menu"
+  };
+  private static final String[] adminMenu = {
+      "--- Admin Menu ---",
+      "1. List of clients (sort by name)",
+      "2. List of clients (sort by balance)",
+      "3. List of clients (sort by date)",
+      "4. Closing an account",
       "0. Back to main menu"
   };
   private int num;
@@ -32,6 +40,10 @@ public class Atm {
 
   public static String[] getClientMenu() {
     return clientMenu;
+  }
+
+  public static String[] getAdminMenu() {
+    return adminMenu;
   }
 
   public int getNum() {
@@ -68,8 +80,11 @@ public class Atm {
       System.out.print("Invalid input. Enter the number: ");
     }
     choice = scanner.nextInt();
-    while (choice < 0 || choice > args.length - 1) { // -1(Название меню)
-      System.out.println();
+    while (choice < 0 || choice >= args.length - 1) { // -1(Название меню)
+      if (choice == 1001) {
+        return choice;
+      }
+      System.out.print("Incorrect menu number. Enter the number: ");
       while (!scanner.hasNextInt()) {
         scanner.next();
         System.out.print("Invalid input. Enter the number: ");
