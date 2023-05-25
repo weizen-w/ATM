@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Transaction {
 
-  private static int numberID = 1;
+  private static int numberID = 0;
   private final Date date;
   private final double sum;
   private final String comment;
