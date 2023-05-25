@@ -54,7 +54,9 @@ public class Transaction {
   }
 
   public String toWrite() {
-    return String.format("%d;%s;%.2f;%s;%b%n", numberID, formatter.format(date), sum, comment,
+    String sumStr = sum + "";
+    sumStr = sumStr.replace(',', '.');
+    return String.format("%d;%s;%s;%s;%b", numberID, formatter.format(date), sumStr, comment,
         debitKredit);
   }
 }
