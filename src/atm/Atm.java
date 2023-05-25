@@ -12,16 +12,16 @@ public class Atm {
       "3. Cash deposit",
       "4. Cash withdraw",
       "5. Balance",
-      "6. History transactions",
-      "7. Change PIN-code",
+      "6. History transactions (in development)",
+      "7. Change PIN-code (in test's)",
       "0. Back to main menu"
   };
   private static final String[] adminMenu = {
       "--- Admin Menu ---",
       "1. List of clients (sort by name)",
-      "2. List of clients (sort by balance)",
-      "3. List of clients (sort by date)",
-      "4. Closing an account",
+      "2. List of clients (sort by balance) (in development)",
+      "3. List of clients (sort by date) (in development)",
+      "4. Closing an account (in development)",
       "0. Back to main menu"
   };
   private int num;
