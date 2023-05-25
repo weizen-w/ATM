@@ -3,11 +3,8 @@ import atm.Atm;
 import atm.Bank;
 import atm.Client;
 import atm.ClientNameComparator;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,8 +12,8 @@ public class Main {
 
   public static void main(String[] args) throws IOException, ParseException {
     Scanner scanner = new Scanner(System.in);
-    Bank bank = new Bank("ProjectBank", "10178 Berlin, Panoramastr. 1A");
-    Atm atm = new Atm(15299, "10969 Berlin, Moritzstr. 17", bank);
+    Bank bank = new Bank("ProjectBank", "10178 Berlin, Panorama str. 1A");
+    Atm atm = new Atm(15299, "10969 Berlin, Moritz str. 17", bank);
     Bank.mapClientPin = Bank.readFromFileMapClientPin();
     System.out.println(atm);
     int choiceMain, choiceSub, choiceAdmin;
