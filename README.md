@@ -24,14 +24,15 @@
 логины пароли для тестов в файле res/clients.csv
 
 в программе доступны следующие меню:
---- Main Menu ---
+--- 
+Main Menu
 
 1. Authorization
 0. Exit
 
 ---
 
-Client Menu ---
+Client Menu
 
 1. Pay
 2. Transfer
@@ -44,9 +45,7 @@ Client Menu ---
 
 ---
 
----
-
-Admin Menu ---
+Admin Menu
 
 1. List of clients (sort by name)
 2. List of clients (sort by balance) (in development)
