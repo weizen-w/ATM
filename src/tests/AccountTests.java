@@ -28,9 +28,9 @@ public class AccountTests {
   public void testReadFromFileTransactionList() throws IOException, ParseException {
     // arrange
     List<Transaction> expectedList = new ArrayList<>();
-    SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-    Transaction transaction = new Transaction(formatter.parse("25.05.2023"), 9999.99,
-        "Cash-in in ATM No.15299", true);
+    SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy,hh:mm:ss");
+    Transaction transaction = new Transaction(formatter.parse("26.05.2023,04:06:28"),
+        9999.99, "Cash-in in ATM No.15299", true);
     expectedList.add(transaction);
     double balanceExpected = 9999.99;
     Account account = new Account("99876543232");

@@ -43,7 +43,7 @@ public class TransactionTests {
     Transaction transaction = new Transaction(expectedDate, expectedSum, expectedComment,
         expectedDebitKredit);
     //arrange in act
-    String expected = String.format("%d\t| %s\t| %f\t| %s\t| %b", Transaction.getNumberID(),
+    String expected = String.format("%d\t| %s\t| %.2f\t| %s\t| %b", transaction.getCurrentNumberID(),
         expectedDate, expectedSum, expectedComment, expectedDebitKredit);
     String actual = transaction.toString();
     //assert
@@ -60,7 +60,7 @@ public class TransactionTests {
     boolean expectedDebitKredit = false;
     Transaction transaction = new Transaction(expectedDate, expectedSum, expectedComment,
         expectedDebitKredit);
-    SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+    SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy,hh:mm:ss");
     //arrange in act
     String expected = String.format("%d;%s;%s;%s;%b", Transaction.getNumberID(),
         formatter.format(expectedDate), expectedSumStr, expectedComment,
