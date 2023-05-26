@@ -53,7 +53,11 @@ public class Main {
               account.setTransactionHistory(account.readFromFileTransactionList());
               System.out.println(account.getBalance());
             }
-//            case 6 -> client.printHistory();
+            case 6 -> {
+              Account account = client.selectAccount(scanner);
+              account.setTransactionHistory(account.readFromFileTransactionList());
+              account.printTransactionHistory();
+            }
             case 7 -> Bank.changePIN(client, scanner);
           }
         } while (choiceSub != 0);
