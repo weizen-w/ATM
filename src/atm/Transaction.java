@@ -6,8 +6,10 @@ import java.util.Objects;
 
 public class Transaction {//TODO read all transaction at start or file params.ini
 
-  private static final SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+  private static final SimpleDateFormat formatter =
+      new SimpleDateFormat("dd.MM.yyyy,hh:mm:ss");
   private static int numberID = 0;
+  private final int currentNumberID;
   private final Date date;
   private final double sum;
   private final String comment;
@@ -18,7 +20,16 @@ public class Transaction {//TODO read all transaction at start or file params.in
   }
 
   public Transaction(Date date, double sum, String comment, boolean debitKredit) {
+    this.currentNumberID = numberID;
     numberID++;
+    this.date = date;
+    this.sum = sum;
+    this.comment = comment;
+    this.debitKredit = debitKredit;
+  }
+
+  public Transaction(int currentNumberID, Date date, double sum, String comment, boolean debitKredit) {
+    this.currentNumberID = currentNumberID;
     this.date = date;
     this.sum = sum;
     this.comment = comment;
@@ -45,8 +56,12 @@ public class Transaction {//TODO read all transaction at start or file params.in
     return debitKredit;
   }
 
+  public int getCurrentNumberID() {
+    return currentNumberID;
+  }
+
   public String toWrite() {
-    String sumStr = String.valueOf(sum);
+    String sumStr = String.format("%.2f", sum);
     sumStr = sumStr.replace(',', '.');
     return String.format("%d;%s;%s;%s;%b", numberID, formatter.format(date), sumStr, comment,
         debitKredit);
@@ -71,6 +86,7 @@ public class Transaction {//TODO read all transaction at start or file params.in
 
   @Override
   public String toString() {
-    return String.format("%d\t| %s\t| %f\t| %s\t| %b", numberID, date, sum, comment, debitKredit);
+    return String.format("%d\t| %s\t| %.2f\t| %s\t| %b",
+        currentNumberID, date, sum, comment, debitKredit);
   }
 }

@@ -18,7 +18,8 @@ public class Account {
   private double balance = 0.0;
   private static final String SEP = ";";
   private List<Transaction> transactionHistory;
-  private static final SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+  private static final SimpleDateFormat formatter =
+      new SimpleDateFormat("dd.MM.yyyy,hh:mm:ss");
   private String FILENAME;
 
   public Account(String accountNumber) {
@@ -65,7 +66,7 @@ public class Account {
         double sum = Double.parseDouble(strAfterSplit[2]);
         String comment = strAfterSplit[3];
         boolean debitKredit = Boolean.parseBoolean(strAfterSplit[4]);
-        transList.add(new Transaction(date, sum, comment, debitKredit));
+        transList.add(new Transaction(numberID, date, sum, comment, debitKredit));
         if (debitKredit) {
           balance += sum;
         } else {

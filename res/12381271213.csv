@@ -1,4 +1,4 @@
-1;25.05.2023;99999.0;Cash in in ATM===  ATM No.15299  ===	10969 Berlin, Moritz str. 17	***  Bank name: ProjectBank, address: 10178 Berlin, Panorama str. 1A  ***;false
-3;25.05.2023;1002.55;Test1;false
-6;25.05.2023;50.0;Cash in in ATM===  ATM No.15299  ===	10969 Berlin, Moritz str. 17	***  Bank name: ProjectBank, address: 10178 Berlin, Panorama str. 1A  ***;false
-10;25.05.2023;50000.0;Test2 to accNo:595956665;false
+1;26.05.2023,05:06:28;9000.00;Cash-in in ATM No.15299;true
+2;26.05.2023,05:06:43;100.50;Test1;false
+3;26.05.2023,05:07:06;149.99;Test2 to accNo:54879865;false
+4;26.05.2023,05:07:15;500.00;Cash-out in ATM No.15299;false
