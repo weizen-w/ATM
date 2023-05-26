@@ -80,4 +80,23 @@ public class ClientTests {
     // assert
     assertEquals(name, actual);
   }
+
+  @Test
+  public void testBalance() {
+    //arrange
+    Client wladimir = new Client("Wladimir");
+    List<Account> wladimirAcc = new ArrayList<>();
+    wladimirAcc.add(new Account("12381271213"));
+    wladimirAcc.add(new Account("12983737677"));
+    wladimirAcc.add(new Account("99876543232"));
+    wladimir.setAccounts(wladimirAcc);
+    double expectedBalance = 0.0;
+    for (Account acc : wladimirAcc) {
+      expectedBalance += acc.getBalance();
+    }
+    // arrange & act
+    double actualBalance = wladimir.balance();
+    //assert
+    assertEquals(expectedBalance, actualBalance);
+  }
 }
