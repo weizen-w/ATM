@@ -46,7 +46,7 @@ public class BankTests {
     //arrange
     HashMap<String, String> expected = new HashMap<>();
     expected.put("Oleksandr", "1111");
-    expected.put("Wladimir", "5678");
+    expected.put("Wladimir", "8765");
     expected.put("Kateryna", "9012");
     //act
     HashMap<String, String> actual = Bank.readFromFileMapClientPin();
@@ -56,11 +56,11 @@ public class BankTests {
   }
 
   @Test
-  public void testReadFromFileMapClientPinNonEquals() throws IOException {
+  public void testReadFromFileMapClientPinNotEquals() throws IOException {
     //arrange
     HashMap<String, String> expected = new HashMap<>();
     expected.put("Oleksandr", "1111");
-    expected.put("Wladimir", "5678");
+    expected.put("Wladimir", "8765");
     expected.put("Kateryna", "0000");
     //act
     HashMap<String, String> actual = Bank.readFromFileMapClientPin();
@@ -85,7 +85,7 @@ public class BankTests {
   }
 
   @Test
-  public void testMakeListClientsNonEquals() throws IOException {
+  public void testMakeListClientsNotEquals() throws IOException {
     //arrange
     List<Client> expected = new ArrayList<>();
     expected.add(new Client("OlEkSaNdRrRrRrRr"));
