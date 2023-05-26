@@ -80,6 +80,4 @@ public class ClientTests {
     //assert
     assertEquals(expectedBalance, actualBalance);
   }
-
-
 }
