@@ -52,6 +52,25 @@ public class ClientTests {
   }
 
   @Test
+  public void testBalance() {
+    //arrange
+    Client wladimir = new Client("Wladimir");
+    List<Account> wladimirAcc = new ArrayList<>();
+    wladimirAcc.add(new Account("12381271213"));
+    wladimirAcc.add(new Account("12983737677"));
+    wladimirAcc.add(new Account("99876543232"));
+    wladimir.setAccounts(wladimirAcc);
+    double expectedBalance = 0.0;
+    for (Account acc : wladimirAcc) {
+      expectedBalance += acc.getBalance();
+    }
+    // arrange & act
+    double actualBalance = wladimir.balance();
+    //assert
+    assertEquals(expectedBalance, actualBalance);
+  }
+
+  @Test
   public void testToString() {
     // arrange
     String name = "Jon";
