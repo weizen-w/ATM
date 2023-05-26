@@ -80,7 +80,7 @@ public class Atm {
       System.out.print("Invalid input. Enter the number: ");
     }
     choice = scanner.nextInt();
-    while (choice < 0 || choice >= args.length - 1) { // -1(Название меню)
+    while (choice < 0 || choice >= args.length - 1) { // -1(name menu)
       if (choice == 1001) {
         return choice;
       }

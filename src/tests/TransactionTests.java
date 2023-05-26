@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 public class TransactionTests {
 
-
   @Test
   public void testConstructorNumberId() {
     //arrange

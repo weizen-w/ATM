@@ -60,7 +60,7 @@ public class Account {
       String accString = scanner.nextLine();
       if (!accString.isEmpty()) {
         String[] strAfterSplit = accString.split(SEP);
-        int numberID = Integer.parseInt(strAfterSplit[0]);
+        int numberID = Integer.parseInt(strAfterSplit[0]); // TODO
         Date date = formatter.parse(strAfterSplit[1]);
         double sum = Double.parseDouble(strAfterSplit[2]);
         String comment = strAfterSplit[3];
@@ -165,8 +165,7 @@ public class Account {
     }
   }
 
-  private void writeTransactionToFile(Transaction t, String filename)
-      throws IOException {
+  private void writeTransactionToFile(Transaction t, String filename) throws IOException {
     List<String> stringFromFile = new ArrayList<>();
     Scanner scanner = new Scanner(new FileReader(filename));
     while (scanner.hasNextLine()) {

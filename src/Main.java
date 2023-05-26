@@ -12,7 +12,7 @@ public class Main {
 
   public static void main(String[] args) throws IOException, ParseException {
     Scanner scanner = new Scanner(System.in);
-    Bank bank = new Bank("ProjectBank", "10178 Berlin, Panorama str. 1A");
+    Bank bank = new Bank("\"ProjectBank\" GmbH", "10178 Berlin, Panorama str. 1A");
     Atm atm = new Atm(15299, "10969 Berlin, Moritz str. 17", bank);
     Bank.mapClientPin = Bank.readFromFileMapClientPin();
     System.out.println(atm);
@@ -53,7 +53,6 @@ public class Main {
               account.setTransactionHistory(account.readFromFileTransactionList());
               System.out.println(account.getBalance());
             }
-
 //            case 6 -> client.printHistory();
             case 7 -> Bank.changePIN(client, scanner);
           }
