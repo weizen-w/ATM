@@ -27,8 +27,7 @@
 --- Main Menu ---
 
 1. Authorization
-2.
-      0. Exit
+0. Exit
 
 ---
 
