@@ -1,6 +1,5 @@
 package atm;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -68,7 +67,6 @@ public class Bank {
           authSuccess = true;
         } else {
           System.out.println("Wrong PIN!");
-          continue;
         }
       } else {
         System.out.println("Wrong login!");
@@ -99,7 +97,7 @@ public class Bank {
     writeToFileMapClientPin(mapClientPin);
   }
 
-  public static HashMap<String, String> readFromFileMapClientPin() throws IOException {
+  public static HashMap<String, String> readFromFileMapClientPin() throws FileNotFoundException {
     HashMap<String, String> clientPin = new HashMap<>();
     Scanner scanner = new Scanner(new FileReader(CLIENTS));
     String str;
@@ -113,17 +111,16 @@ public class Bank {
     return clientPin;
   }
 
-
   private static void writeToFileMapClientPin(Map<String, String> clientPin) throws IOException {
 
-    FileWriter fileWriter = new FileWriter(new File(CLIENTS));
+    FileWriter fileWriter = new FileWriter(CLIENTS);
     for (String key : clientPin.keySet()) {
       fileWriter.write(key + ";" + clientPin.get(key) + "\n");
     }
     fileWriter.close();
   }
 
-  public static List<Client> makeListClients() throws FileNotFoundException {
+  public static List<Client> makeListClients() {
     List<Client> clientList = new ArrayList<>();
     for (String str : mapClientPin.keySet()) {
       Client client = new Client(str);

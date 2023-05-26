@@ -13,9 +13,5 @@ public class ClientNameComparator implements Comparator<Client> {
     }
     return 0;
   }
-
-//  @Override
-//  public Comparator<Client> reversed() {
-//    return Comparator.super.reversed();
-//  }
+  // TODO can make method reverse()
 }

@@ -46,7 +46,7 @@ public class Transaction {//TODO read all transaction at start or file params.in
   }
 
   public String toWrite() {
-    String sumStr = sum + "";
+    String sumStr = String.valueOf(sum);
     sumStr = sumStr.replace(',', '.');
     return String.format("%d;%s;%s;%s;%b", numberID, formatter.format(date), sumStr, comment,
         debitKredit);
