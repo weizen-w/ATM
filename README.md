@@ -39,8 +39,8 @@ Client Menu ---
 3. Cash deposit
 4. Cash withdraw
 5. Balance
-6. History transactions (in development)
-7. Change PIN-code (in test's)
+6. History transactions
+7. Change PIN-code
 0. Back to main menu
 
 ---
