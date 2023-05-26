@@ -6,15 +6,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
-import javax.naming.SizeLimitExceededException;
 
 public class Client {
 
   private String name;
   private List<Account> accounts;
 
-  public Client(String name) throws FileNotFoundException {
+  public Client(String name) {
     this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public List<Account> getAccounts() {
+    return accounts;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setAccounts(List<Account> accounts) {
+    this.accounts = accounts;
   }
 
   public static List<Account> readFromFileAccountsList(Client client) throws FileNotFoundException {
@@ -23,18 +38,9 @@ public class Client {
     List<Account> accList = new ArrayList<>();
     while (scanner.hasNextLine()) {
       String accString = scanner.nextLine();
-
       accList.add(new Account(accString));
     }
     return accList;
-  }
-
-  public void setAccounts(List<Account> accounts) {
-    this.accounts = accounts;
-  }
-
-  public String getName() {
-    return name;
   }
 
   public Account selectAccount(Scanner scanner) {
@@ -42,17 +48,15 @@ public class Client {
       System.out.println("No accounts found for this client.");
       return null;
     }
-
     System.out.println("Select an account:");
     for (int i = 0; i < accounts.size(); i++) {
       System.out.println((i + 1) + ". " + accounts.get(i));
     }
-
-    int choice = getIntInput(scanner, 1, accounts.size());
+    int choice = getIntInput(scanner);
     return accounts.get(choice - 1);
   }
 
-  public double balance() {
+  public double balance() { // TODO
     double totalBalance = 0.0;
     for (Account account : accounts) {
       totalBalance += account.getBalance();
@@ -60,7 +64,7 @@ public class Client {
     return totalBalance;
   }
 
-  public void printHistory() {
+  public void printHistory() { // TODO
     for (Account account : accounts) {
       System.out.println("Account: " + account);
       account.printTransactionHistory();
@@ -68,26 +72,17 @@ public class Client {
     }
   }
 
-//  public static Client getByName(String name) {
-//    for (Client client : Bank.getClients()) {
-//      if (client.getName().equals(name)) {
-//        return client;
-//      }
-//    }
-//    return null;
-//  }
-
-  private static int getIntInput(Scanner scanner, int min, int max) {
+  public int getIntInput(Scanner scanner) {
     int choice;
     do {
-      System.out.print("Enter a number between " + min + " and " + max + ": ");
+      System.out.print("Enter a number between 1 and " + accounts.size() + ": ");
       while (!scanner.hasNextInt()) {
         System.out.println("Invalid input. Please enter a valid number.");
         scanner.next();
       }
       choice = scanner.nextInt();
       scanner.nextLine(); // Consume the newline character
-    } while (choice < min || choice > max);
+    } while (choice < 1 || choice > accounts.size());
     return choice;
   }
 
@@ -99,9 +94,7 @@ public class Client {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-
     Client client = (Client) o;
-
     return Objects.equals(name, client.name);
   }
 

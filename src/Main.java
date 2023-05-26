@@ -28,47 +28,34 @@ public class Main {
           atm.printMenu(Atm.getClientMenu());
           choiceSub = atm.selectMenu(scanner, Atm.getClientMenu());
           switch (choiceSub) {
-            case 1: {
+            case 1 -> {
               Account account = client.selectAccount(scanner);
-              account.setTransactionHistory(
-                  account.readFromFileTransactionList(client, account.getAccountNumber()));
+              account.setTransactionHistory(account.readFromFileTransactionList());
               account.payment(scanner);
-              break;
             }
-            case 2: {
+            case 2 -> {
               Account account = client.selectAccount(scanner);
-              account.setTransactionHistory(
-                  account.readFromFileTransactionList(client, account.getAccountNumber()));
+              account.setTransactionHistory(account.readFromFileTransactionList());
               account.transfer(scanner);
-              break;
             }
-            case 3: {
+            case 3 -> {
               Account account = client.selectAccount(scanner);
-              account.setTransactionHistory(
-                  account.readFromFileTransactionList(client, account.getAccountNumber()));
+              account.setTransactionHistory(account.readFromFileTransactionList());
               account.deposit(scanner, atm);
-              break;
             }
-            case 4: {
+            case 4 -> {
               Account account = client.selectAccount(scanner);
-              account.setTransactionHistory(
-                  account.readFromFileTransactionList(client, account.getAccountNumber()));
+              account.setTransactionHistory(account.readFromFileTransactionList());
               account.withdraw(scanner, atm);
-              break;
             }
-            case 5: {
+            case 5 -> {
               Account account = client.selectAccount(scanner);
-              account.setTransactionHistory(
-                  account.readFromFileTransactionList(client, account.getAccountNumber()));
+              account.setTransactionHistory(account.readFromFileTransactionList());
               System.out.println(account.getBalance());
-              break;
             }
-//            case 6 -> client.printHistory(); break;
-            case 7: {
-              Bank.changePIN(client, scanner);
 
-              break;
-            }
+//            case 6 -> client.printHistory();
+            case 7 -> Bank.changePIN(client, scanner);
           }
         } while (choiceSub != 0);
       }
@@ -78,23 +65,16 @@ public class Main {
           atm.printMenu(Atm.getAdminMenu());
           choiceAdmin = atm.selectMenu(scanner, Atm.getAdminMenu());
           switch (choiceAdmin) {
-            case 1: {
+            case 1 -> {
               clientList.sort(new ClientNameComparator());
               for (Client client : clientList) {
                 List<Account> clientAccountList = Client.readFromFileAccountsList(client);
                 System.out.printf("Client: %s\n%s\n", client, clientAccountList);
               }
-              break;
             }
-//            case 2: {
-//
-//            }
-//            case 3: {
-//
-//            }
-//            case 4: {
-//
-//            }
+//            case 2 -> {}
+//            case 3 -> {}
+//            case 4 -> {}
           }
         } while (choiceAdmin != 0);
       }

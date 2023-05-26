@@ -47,7 +47,6 @@ public class TransactionTests {
     String expected = String.format("%d\t| %s\t| %f\t| %s\t| %b", Transaction.getNumberID(),
         expectedDate, expectedSum, expectedComment, expectedDebitKredit);
     String actual = transaction.toString();
-
     //assert
     assertEquals(expected, actual);
   }
@@ -68,7 +67,6 @@ public class TransactionTests {
         formatter.format(expectedDate), expectedSumStr, expectedComment,
         expectedDebitKredit);
     String actual = transaction.toWrite();
-
     //assert
     assertEquals(expected, actual);
   }
@@ -90,6 +88,5 @@ public class TransactionTests {
     assertEquals(expectedSum, transaction.getSum());
     assertEquals(expectedComment, transaction.getComment());
     assertEquals(expectedDebitKredit, transaction.isDebitKredit());
-
   }
 }

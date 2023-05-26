@@ -2,9 +2,11 @@ package atm;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class Transaction {//TODO read all transaction at start or file params.ini
 
+  private static final SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
   private static int numberID = 0;
   private final Date date;
   private final double sum;
@@ -14,8 +16,6 @@ public class Transaction {//TODO read all transaction at start or file params.in
   public static void setNumberID(int numberID) {
     Transaction.numberID = numberID;
   }
-
-  private static final SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
   public Transaction(Date date, double sum, String comment, boolean debitKredit) {
     numberID++;
@@ -45,15 +45,32 @@ public class Transaction {//TODO read all transaction at start or file params.in
     return debitKredit;
   }
 
-  @Override
-  public String toString() {
-    return String.format("%d\t| %s\t| %f\t| %s\t| %b", numberID, date, sum, comment, debitKredit);
-  }
-
   public String toWrite() {
     String sumStr = sum + "";
     sumStr = sumStr.replace(',', '.');
     return String.format("%d;%s;%s;%s;%b", numberID, formatter.format(date), sumStr, comment,
         debitKredit);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Transaction that = (Transaction) o;
+    return Double.compare(that.sum, sum) == 0 && Objects.equals(date, that.date);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(date, sum);
+  }
+
+  @Override
+  public String toString() {
+    return String.format("%d\t| %s\t| %f\t| %s\t| %b", numberID, date, sum, comment, debitKredit);
   }
 }
